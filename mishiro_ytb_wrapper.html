@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="player" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0;"></div>
+
+    <script>
+      var channel_id = '';
+      //uncomment the corresponding line for the channel you wanna relay.
+      //把要转播的频道对应的那一行前的//删除！
+
+      //犬山玉姬
+      //channel_id = 'UC8NZiqKx6fsDT3AVcMiVFyA';
+      //白雪深白
+      channel_id = 'UCC0i9nECi4Gz7TU63xZwodg';
+      //爱宫MILK
+      //channel_id = 'UCJCzy0Fyrm0UhIrGQ7tHpjg';
+      //姫咲柚流
+      //channel_id = 'UCle1cz6rcyH0a-xoMYwLlAg';
+
+      //CHANGE 'ROOM_ID' IN THE LINE BELOW to the liveroom you wanna shutdown after stream ends!
+      //把'ROOM_ID'改为想要关闭的b站直播间号，引号请保留!!!
+      var room = 'ROOM_ID';
+
+      var params = window.location.search.slice(1).split("&");
+      for(var p=0; p<params.length; p++) {
+        var nv = params[p].split("=");
+        if (nv[0] == 'channel_id') {
+          channel_id = nv[1];
+        }
+      }
+
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          width: '100%',
+          height: '100%',
+          margin: 0,
+          videoId: 'live_stream',
+          playerVars: { 'autoplay': 1, 'rel': 0, 'channel': channel_id },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+        player.playVideo();
+      }
+
+      const Http = new XMLHttpRequest();
+      const url='http://sh.umi.fish:60083/'+channel_id+'/'+room;
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+          player.stopVideo();
+          Http.open('POST',url);
+          Http.send();
+          done = true;
+        }
+      }
+    </script>
+  </body>
+</html>
