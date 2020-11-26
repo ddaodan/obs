@@ -1,4 +1,4 @@
-font-family:  字体
+font-family:字体
 font-size:字号
 color: 颜色 [可以使用rgb色值设置 rgba(0, 10, 0, 0.5)]
 ext-align: 对齐方式
