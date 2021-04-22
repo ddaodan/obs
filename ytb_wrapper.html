@@ -4,7 +4,19 @@
     <div id="player" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0;"></div>
 
     <script>
+      function getUrlArgs(){
+          var url_pid=window.location.search.substring(1);
+          var pairs = url_pid.split("&");
+          var urlinfo={};
+          for(var i = 0; i < pairs.length; i++) { 　
+              var pos = pairs[i].indexOf('=');
+              urlinfo[pairs[i].substring(0,pos)]=decodeURI(pairs[i].substring(pos+1));
+          } ;
+          return urlinfo;
+      };
+      var apaurl=getUrlArgs();
       var channel_id = '';
+      channel_id = apaurl.id;
       //uncomment the corresponding line for the channel you wanna relay.
       //把要转播的频道对应的那一行前的//删除！
 
