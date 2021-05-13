@@ -8,4 +8,4 @@ https://ddaodan.github.io/obs/ytb_wrapper.html?id=channel_id
 
 https://www.youtube.com/channel/UCCXME7oZmXB2VFHJbz5496A
 
-`channel/`后面的就是频道id
+`UCCXME7oZmXB2VFHJbz5496A`就是频道id
